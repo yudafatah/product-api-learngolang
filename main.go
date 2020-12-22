@@ -13,6 +13,8 @@ import (
 
 func main() {
 
+	port := os.Getenv("PORT")
+
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
 	// create the handlers
@@ -24,7 +26,6 @@ func main() {
 
 	// create a new server
 	s := &http.Server{
-		Addr:              ":9090", // configure the bind address
 		Handler:           sm, // set the default handler
 		ReadTimeout:       1 * time.Second, // max time to read request from the client
 		ReadHeaderTimeout: 0,
@@ -36,7 +37,7 @@ func main() {
 
 	// start the server which already created
 	go func() {
-		l.Println("Starting server on port 9090")
+		l.Printf("Starting server on port %s\n", port)
 
 		err := s.ListenAndServe()
 		if err != nil {
