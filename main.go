@@ -15,6 +15,10 @@ func main() {
 
 	port := os.Getenv("PORT")
 
+	if port == "" {
+		port = "80"
+	}
+
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
 	// create the handlers
@@ -26,6 +30,7 @@ func main() {
 
 	// create a new server
 	s := &http.Server{
+		Addr: ":"+port,
 		Handler:           sm, // set the default handler
 		ReadTimeout:       1 * time.Second, // max time to read request from the client
 		ReadHeaderTimeout: 0,
