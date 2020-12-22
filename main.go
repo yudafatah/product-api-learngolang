@@ -15,10 +15,6 @@ func main() {
 
 	port := os.Getenv("PORT")
 
-	if port == "" {
-		port = "80"
-	}
-
 	l := log.New(os.Stdout, "product-api", log.LstdFlags)
 
 	// create the handlers
